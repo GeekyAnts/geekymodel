@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { createModel } from "./lib";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const User = createModel({
+  table: "users",
+  fields: ["name", "dob"]
+});
+
+class App extends React.Component {
+  componentWillMount() {
+    this.query = User.findAll();
+    setTimeout(() => this.forceUpdate(), 3000);
+  }
+
+  render() {
+    return (
+      <div>
+        <div>
+          Loading: <pre>{JSON.stringify(this.query.loading, null, 4)}</pre>
+          Data: <pre>{JSON.stringify(this.query.data, null, 4)}</pre>
+        </div>
+        <div>
+          <input type="text" value="Something" />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
