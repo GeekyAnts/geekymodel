@@ -15,5 +15,5 @@ export default interface Deferred<T> {
   error: boolean;
   errors: Array<ErrorMessage>;
   data: T | undefined;
-  //promise: Promise<T>;
+  promise: Promise<Deferred<T>>;
 }

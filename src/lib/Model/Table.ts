@@ -1,11 +1,11 @@
-import TableSchema from "./TableSchema";
-import Row from "./Row";
+import Schema from "./Schema";
+//import Row from "./Row";
 
 export default class Table {
-  schema: TableSchema;
-  rows: Map<string, Row> = new Map();
+  schema: Schema;
+  rows: Map<string, string> = new Map();
 
-  constructor({ schema }: { schema: TableSchema }) {
+  constructor({ schema }: { schema: Schema }) {
     this.schema = schema;
   }
 }

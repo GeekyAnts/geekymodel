@@ -1,13 +1,13 @@
-import GlobalStore from "./Model/Database";
-import TableSchema from "./Model/TableSchema";
-import ModelController from "./Model/Controller";
+import Database from "./Model/Database";
+import Schema from "./Model/Schema";
+import ModelController from "./Model/Model";
 
-const globalStore = new GlobalStore();
+const database = new Database();
 
 if (window) {
-  (window as any).globalStore = globalStore;
+  (window as any).database = database;
 }
 
-export function createModel(tableSchema: TableSchema) {
-  return new ModelController({ tableSchema, globalStore });
+export function createModel(schema: Schema) {
+  return new ModelController({ schema });
 }

@@ -1,7 +1,7 @@
-export default class TableSchema {
+export default class Schema {
   table: string;
   fields: Array<string> = [];
-  relationships: Array<any> = [];
+  relationships?: Array<any> = [];
 
   constructor({ table, fields }: { table: string; fields: Array<string> }) {
     this.table = table;
