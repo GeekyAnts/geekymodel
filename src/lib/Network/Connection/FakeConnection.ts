@@ -20,12 +20,12 @@ export default class FakeConnection implements ConnectionInterface {
 
   async get(entity: any, select: any, where: any) {
     return new Promise((resolve, reject) => {
-      setTimeout(() => resolve(getNewEntityArray()), 200);
+      setTimeout(() => resolve(getNewEntityArray()), 1000);
     });
   }
   async find(entity: any, select: any, where: any) {
     return new Promise((resolve, reject) => {
-      setTimeout(() => resolve(getNewEntity()), 200);
+      setTimeout(() => resolve(getNewEntity()), 1000);
     });
   }
 
@@ -37,20 +37,20 @@ export default class FakeConnection implements ConnectionInterface {
             ...values,
             id: Math.random()
           }),
-        200
+        1000
       );
     });
   }
 
   async update(entity: any, values: any, where: any) {
     return new Promise((resolve, reject) => {
-      setTimeout(() => resolve({ ...values }), 200);
+      setTimeout(() => resolve({ ...values }), 1000);
     });
   }
 
   async delete(entity: any, where: any) {
     return new Promise((resolve, reject) => {
-      setTimeout(() => resolve(getNewEntity()), 200);
+      setTimeout(() => resolve(getNewEntity()), 1000);
     });
   }
 }

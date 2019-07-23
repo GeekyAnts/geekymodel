@@ -19,3 +19,18 @@ test("Builder: Test find()", async () => {
   var value = await deferredResponse.promise;
   expect(value.loading).toBe(false);
 });
+
+test("Builder: Test requestMiddleware", async () => {
+  let builder = new Builder(connection, {
+    requestMiddleware: (config: any) => {
+      config.from = "someTable";
+      return config;
+    }
+  });
+
+  let deferredResponse: Deferred<any> = await builder.from("user").find();
+  expect(deferredResponse.loading).toBe(true);
+
+  var value = await deferredResponse.promise;
+  expect(value.loading).toBe(false);
+});

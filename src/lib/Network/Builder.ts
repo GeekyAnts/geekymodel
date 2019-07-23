@@ -9,8 +9,23 @@ export default class Builder implements IQueryable<any> {
   _from: string = "";
   _where: Array<any> = [];
 
-  constructor(connection: ConnectionInterface) {
+  _requestMiddleware: any = () => {};
+  _responseMiddleware: any = () => {};
+
+  constructor(
+    connection: ConnectionInterface,
+    config?: {
+      requestMiddleware?: any;
+      responseMiddleware?: any;
+    }
+  ) {
     this._connection = connection;
+
+    if (config && config.requestMiddleware)
+      this._requestMiddleware = config.requestMiddleware;
+
+    if (config && config.responseMiddleware)
+      this._responseMiddleware = config.responseMiddleware;
   }
 
   setConnection(connection: ConnectionInterface) {
@@ -32,15 +47,45 @@ export default class Builder implements IQueryable<any> {
     return (this as unknown) as IQueryable<any>;
   }
 
+  makeConnectionRequest(requestObject: {
+    method: "get" | "find";
+    select: string;
+    from: string;
+    where: Array<any>;
+  }) {
+    if (this._requestMiddleware)
+      requestObject = this._requestMiddleware(requestObject);
+
+    return this._connection[requestObject.method](
+      requestObject.from,
+      requestObject.select,
+      requestObject.where
+    );
+  }
+
+  handleConnectionResponse(response: any) {
+    return response;
+  }
+
   find() {
     return this._processRequest(
-      this._connection.find(this._from, this._select, this._where)
+      this.makeConnectionRequest({
+        method: "find",
+        from: this._from,
+        select: this._select,
+        where: this._where
+      })
     );
   }
 
   get() {
     return this._processRequest(
-      this._connection.get(this._from, this._select, this._where)
+      this.makeConnectionRequest({
+        method: "get",
+        from: this._from,
+        select: this._select,
+        where: this._where
+      })
     );
   }
 
@@ -60,7 +105,7 @@ export default class Builder implements IQueryable<any> {
         )
         .finally(() => {
           result.setLoading(false);
-          resolve(result);
+          resolve(this.handleConnectionResponse(result));
         });
     });
 

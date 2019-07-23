@@ -1,11 +1,13 @@
 import Deferred from "../Common/Deferred";
 import Model from "./Model";
+import Database from "./Database";
+import FakeConnection from "../Network/Connection/FakeConnection";
 
-let userModel = new Model({
-  schema: {
-    table: "users",
-    fields: ["first", "last"]
-  }
+import { createModel } from "../index";
+
+let userModel = createModel({
+  table: "users",
+  fields: ["first", "last"]
 });
 
 test("Model: Chaining", () => {

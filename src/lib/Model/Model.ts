@@ -1,6 +1,4 @@
-/*import Database from "./Database";
-import Query from "../Old/Query";
-import uuid from "../Common/uuid";*/
+import { observable } from "mobx";
 
 import IQueryable from "../Common/IQueryable";
 import Deferred from "../Common/Deferred";
@@ -9,30 +7,42 @@ import Schema from "./Schema";
 import Builder from "../Network/Builder";
 import FakeConnection from "../Network/Connection/FakeConnection";
 import ModelQueryResult from "./ModelQueryResult";
+import Database from "./Database";
 
+/**
+ * Model behaves as a Class and an Object both.
+ * You can create new instances using the create() method.
+ *
+ * @export
+ * @class Model
+ * @implements {IQueryable<any>}
+ * @implements {(Deferred<Map<string | number, any>>)}
+ */
 export default class Model
   implements IQueryable<any>, Deferred<Map<string | number, any>> {
-  _select: string = "";
-  _from: string = "";
-  _where: Array<any> = [];
+  @observable _select: string = "";
+  @observable _from: string = "";
+  @observable _where: Array<any> = [];
 
-  locked: boolean = false;
-  updating: boolean = false;
-  saving: boolean = false;
-  deleting: boolean = false;
+  @observable locked: boolean = false;
+  @observable updating: boolean = false;
+  @observable saving: boolean = false;
+  @observable deleting: boolean = false;
 
-  loading: boolean = false;
-  error: boolean = false;
-  errors: Array<ErrorMessage> = [];
+  @observable loading: boolean = false;
+  @observable error: boolean = false;
+  @observable errors: Array<ErrorMessage> = [];
 
-  data: Map<string | number, any> = new Map<string, any>();
+  @observable data: Map<string | number, any> = new Map<string, any>();
 
-  promise: Promise<any> = new Promise(() => {});
+  @observable promise: Promise<any> = new Promise(() => {});
 
   schema: Schema;
+  database: Database;
 
-  constructor({ schema }: { schema: Schema }) {
+  constructor({ schema, database }: { schema: Schema; database: Database }) {
     this.schema = schema;
+    this.database = database;
   }
 
   select(field: any = "*") {
@@ -59,7 +69,7 @@ export default class Model
   }
 
   findById(id: any) {
-    var newModel = this.createInstance();
+    var newModel = this.create();
     return newModel.where("id", "=", id).find();
   }
 
@@ -92,15 +102,31 @@ export default class Model
   }
 
   get() {
-    return new Model({ schema: this.schema });
+    return new Model({
+      schema: this.schema,
+      database: this.database
+    });
   }
 
-  createInstance() {
-    return new Model({ schema: this.schema });
+  create() {
+    return new Model({
+      schema: this.schema,
+      database: this.database
+    });
   }
 
-  fromJS(values: any) {
-    const model = this.createInstance();
+  emptyFields() {
+    this.data = new Map();
+  }
+
+  fromJS(values: any, existingObject?: Model) {
+    if (!existingObject) {
+      var model = this.create();
+    } else {
+      var model = existingObject;
+      model.emptyFields();
+    }
+
     this.schema.fields.forEach(field => {
       model.setField(field, values[field]);
     });

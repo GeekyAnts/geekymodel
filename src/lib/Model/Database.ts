@@ -1,12 +1,27 @@
-import Schema from "./Schema";
-import Table from "./Table";
-/*import Query from "./Query";
-import Mutation from "./Mutation";
-*/
+import ConnectionInterface from "../Network/Connection/ConnectionInterface";
+
 export default class Database {
-  //queries: Map<string, Query> = new Map();
-  //mutation: Map<string, Mutation> = new Map();
-  databaseRemote: Map<string, Table> = new Map();
-  databaseLocal: Map<string, Table> = new Map();
-  databaseSchema: Map<string, Schema> = new Map();
+  requestMiddlewares: Array<() => {}> = [];
+  responseMiddlewares: Array<() => {}> = [];
+  private _connection: ConnectionInterface;
+
+  useRequestMiddleware(cb: () => {}) {
+    this.requestMiddlewares.push(cb);
+  }
+
+  useResponseMiddleware(cb: () => {}) {
+    this.responseMiddlewares.push(cb);
+  }
+
+  constructor({ connection }: { connection: ConnectionInterface }) {
+    this._connection = connection;
+  }
+
+  setConnection(connection: ConnectionInterface) {
+    this._connection = connection;
+  }
+
+  getConnection() {
+    return this._connection;
+  }
 }
