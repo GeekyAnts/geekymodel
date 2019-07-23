@@ -10,19 +10,21 @@ The Data Models can later be mapped to a Remote service like Firebase, REST API,
 
 ## Features ⚡
 
-- Build your front-end models without worrying about the back-end. GeekyModel works with LocalStorage by default.
+- Build your front-end models **without worrying about the back-end**. GeekyModel works with LocalStorage by default.
 
-- Connect to any back-end at a later stage, like
+- **Offline First**: Connect to any **back-end at a later stage**, like
+
   - Firebase / Firestore
   - GraphQL
   - REST APIs
-- Write request and response middlewares to map the differences in the front-end and the back-end models.
 
-- Built-in standard validation and option to add custom validators.
+- Write request and response **middlewares to map** the differences in the front-end and the back-end models.
 
-- Model Relationships: Relate models with References and Foreign Keys.
+- Built-in standard **validation** and option to add custom validators.
 
-- Built-in fake data: Populate your UI with Fake Data automatically.
+- **Model Relationships**: Relate models with References and Foreign Keys.
+
+- **Built-in Fake Data**: Populate your UI with Fake Data automatically.
 
 ## Getting started
 
