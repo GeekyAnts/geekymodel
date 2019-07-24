@@ -13,7 +13,7 @@ let userModel = createModel({
 test("Model: Chaining", () => {
   expect(typeof userModel.where("x", "=", 5).where).toBe("function");
 });
-
+/*
 test("Model: Test find()", async () => {
   let deferredResponse: Deferred<any> = await userModel.findById(1);
   expect(deferredResponse.loading).toBe(true);
@@ -35,3 +35,4 @@ test("Model: fromJS()", () => {
   expect(sanketModel.getField("first")).toBe("Sanket");
   expect(sanketModel.getField("last")).toBe("Sahu");
 });
+*/
