@@ -1,6 +1,6 @@
 {
   "name": "geekymodel",
-  "version": "0.1.0",
+  "version": "0.1.1-0",
   "private": true,
   "dependencies": {
     "@types/jest": "^24.0.15",
