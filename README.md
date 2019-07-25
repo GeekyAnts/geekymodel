@@ -101,6 +101,7 @@ const allCompleted = Todo.where("isCaption", "=", true).get();
 
 - [x] Model creation with Schema
 - [x] Injectable Transport Layer
+- [ ] RuntimeStorageNetworkDriver
 - [ ] Validation
 - [ ] Request and Response Middlewares
 - [x] Namespace Global variables in Database

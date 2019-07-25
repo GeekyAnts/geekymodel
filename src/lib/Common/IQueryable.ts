@@ -6,8 +6,8 @@ export default interface IQueryable<T> {
   where(prop: any, op: any, val: any): IQueryable<T>;
 
   //find(id: any): Deferred<T> | Promise<T>;
-  get(): Deferred<T> | Promise<T>;
-  find(): Deferred<T> | Promise<T>;
+  get(): Deferred<T>;
+  find(): Deferred<T>;
   //first(): Deferred<T> | Promise<T>;
   //update(values: any): Deferred<T> | Promise<T>;
   //delete(): Deferred<T> | Promise<T>;

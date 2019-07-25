@@ -24,6 +24,9 @@ export default class FakeConnection implements ConnectionInterface {
     });
   }
   async find(entity: any, select: any, where: any) {
+    if (!entity)
+      throw new Error("FakeConnection: No entity defined in the find() call");
+
     return new Promise((resolve, reject) => {
       setTimeout(() => resolve(getNewEntity()), 1000);
     });

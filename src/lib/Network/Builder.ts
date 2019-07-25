@@ -9,8 +9,8 @@ export default class Builder implements IQueryable<any> {
   _from: string = "";
   _where: Array<any> = [];
 
-  _requestMiddleware: any = () => {};
-  _responseMiddleware: any = () => {};
+  _requestMiddleware: any = undefined;
+  _responseMiddleware: any = undefined;
 
   constructor(
     connection: ConnectionInterface,

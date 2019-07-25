@@ -87,6 +87,7 @@ export default class Model
       model: this,
       promise: new Promise<any>((resolve, reject) => {
         builder
+          .from(self.schema.table)
           .find()
           .promise.then(response => {
             result.data = self.fromJS(response.data);
