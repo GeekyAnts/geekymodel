@@ -51,17 +51,15 @@ const Todo = createModel({
 
 #### Creating a new Todo
 
-```typescript
-
+```ts
 const newTodo = Todo.create();
 
 newTodo.setField("caption", "Buy milk");
-newTodo.setField("isCompleted", false");
+newTodo.setField("isCompleted", "false");
 
 newTodo.save();
 
 // newTodo.saving gets populated which an observable
-
 ```
 
 #### Fetching all the todos and wiring with React
@@ -101,12 +99,18 @@ const allCompleted = Todo.where("isCaption", "=", true).get();
 
 - [x] Model creation with Schema
 - [x] Injectable Transport Layer
-- [ ] RuntimeStorageNetworkDriver
+- [ ] Improve FakeConnection to request and response on Schema
+- [ ] WIP: Implement get(), find(), insert(), update() and delete() with FakeConnection()
+- [ ] RuntimeStorageConnection
 - [ ] Validation
 - [ ] Request and Response Middlewares
 - [x] Namespace Global variables in Database
 - [ ] Build script
 - [ ] Middlewares
-- [ ] LocalStorageNetworkDriver
+- [ ] LocalStorageConnection
 - [ ] Normalization
 - [ ] Relationships
+
+## Decisions
+
+- DatabaseSchema to be forwarded from top level to the connection

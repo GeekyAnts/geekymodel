@@ -1,4 +1,4 @@
-import Schema from "./Schema";
+import Schema from "../Common/Schema";
 //import Row from "./Row";
 
 export default class Table {

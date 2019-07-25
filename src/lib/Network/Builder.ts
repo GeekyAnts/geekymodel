@@ -48,19 +48,51 @@ export default class Builder implements IQueryable<any> {
   }
 
   makeConnectionRequest(requestObject: {
-    method: "get" | "find";
-    select: string;
+    method: "get" | "find" | "update" | "delete" | "insert";
+    select?: string;
     from: string;
-    where: Array<any>;
+    where?: Array<any>;
+    values?: any;
   }) {
     if (this._requestMiddleware)
       requestObject = this._requestMiddleware(requestObject);
 
-    return this._connection[requestObject.method](
-      requestObject.from,
-      requestObject.select,
-      requestObject.where
-    );
+    switch (requestObject.method) {
+      case "get":
+      case "find":
+        return this._connection[requestObject.method](
+          requestObject.from,
+          requestObject.select,
+          requestObject.where
+        );
+
+        break;
+
+      case "update":
+        return this._connection[requestObject.method](
+          requestObject.from,
+          requestObject.values,
+          requestObject.where
+        );
+
+        break;
+
+      case "insert":
+        return this._connection[requestObject.method](
+          requestObject.from,
+          requestObject.values
+        );
+
+        break;
+
+      case "delete":
+        return this._connection[requestObject.method](
+          requestObject.from,
+          requestObject.where
+        );
+
+        break;
+    }
   }
 
   handleConnectionResponse(response: any) {
@@ -89,16 +121,46 @@ export default class Builder implements IQueryable<any> {
     );
   }
 
+  insert(values: any) {
+    return this._processRequest(
+      this.makeConnectionRequest({
+        method: "insert",
+        from: this._from,
+        values: values
+      })
+    );
+  }
+
+  update(values: any) {
+    return this._processRequest(
+      this.makeConnectionRequest({
+        method: "update",
+        from: this._from,
+        values: values
+      })
+    );
+  }
+
+  delete() {
+    return this._processRequest(
+      this.makeConnectionRequest({
+        method: "insert",
+        from: this._from,
+        where: this._where
+      })
+    );
+  }
+
   protected _processRequest(connectionRequestResponse: Promise<Result>) {
     var connectionPromise = connectionRequestResponse;
 
     var promise: Promise<Result> = new Promise((resolve, reject) => {
       connectionPromise
         .then(
-          data => {
+          (data: any) => {
             result.setData(data);
           },
-          data => {
+          (data: any) => {
             result.setData(data);
             result.setError(true);
           }
@@ -116,44 +178,4 @@ export default class Builder implements IQueryable<any> {
 
     return result;
   }
-
-  /*  async find(id: any) {
-     return tshis.where("id", "=", id);
-  }
-  async first() {
-    // if (isArray(this)) {
-    //   return this[0];
-    // }
-  }
-*/
-
-  /*async query() {
-                   return this._connection.query(
-                     this._from,
-                     this._select,
-                     this._where
-                   );
-                 }
-
-                 async update(values: any) {
-                   return this._connection.update(
-                     this._from,
-                     values,
-                     this._where
-                   );
-                 }
-
-                 async delete() {
-                   return this._connection.delete(
-                     this._from,
-                     this._where
-                   );
-                 }
-
-                 async insert(values: any) {
-                   return this._connection.insert(
-                     this._from,
-                     values
-                   );
-                 }*/
 }

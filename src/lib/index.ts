@@ -1,5 +1,5 @@
 import Database from "./Model/Database";
-import Schema from "./Model/Schema";
+import Schema from "./Common/Schema";
 import Model from "./Model/Model";
 import FakeConnection from "./Network/Connection/FakeConnection";
 

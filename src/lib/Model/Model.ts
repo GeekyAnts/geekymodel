@@ -3,7 +3,7 @@ import { observable } from "mobx";
 import IQueryable from "../Common/IQueryable";
 import Deferred from "../Common/Deferred";
 import ErrorMessage from "../Common/ErrorMessage";
-import Schema from "./Schema";
+import Schema from "../Common/Schema";
 import Builder from "../Network/Builder";
 import FakeConnection from "../Network/Connection/FakeConnection";
 import ModelQueryResult from "./ModelQueryResult";
