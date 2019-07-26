@@ -113,11 +113,12 @@ const allCompleted = Todo.where("isCaption", "=", true).get();
 - [ ] Build script
 - [ ] Middlewares
 - [ ] LocalStorageConnection
-- [ ] Normalization
 - [ ] Relationships
-- [ ] Examples: Todo app
-- [ ] Examples: Hacker news clone
-- [ ] Examples: Shopping cart
+- [ ] Examples:
+
+  - [ ] Todo app
+  - [ ] Hacker news clone
+  - [ ] Shopping cart
 
 ## Decisions
 
