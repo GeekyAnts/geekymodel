@@ -99,10 +99,19 @@ const allCompleted = Todo.where("isCaption", "=", true).get();
 
 - [x] Model creation with Schema
 - [x] Injectable Transport Layer
-- [ ] Improve FakeConnection to request and response on Schema
-- [ ] WIP: Implement get(), find(), insert(), update() and delete() with FakeConnection()
+- [ ] Connection
+
+  - [ ] FakeConnection
+    - [x] Improve FakeConnection to request and response on Schema
+    - [ ] WIP: Implement get(), find(), insert(), update() and delete() with FakeConnection()
+  - [ ] LocalStorageConnection
+  - [ ] RuntimeStorageConnection
+  - [ ] RuntimeMiddlewareConnection
+  - [ ] FirestoreConnection
+  - [ ] GraphQLConnection
+  - [ ] RestConnection
+
 - [ ] Normalization
-- [ ] RuntimeStorageConnection
 - [ ] Validation
 - [ ] Middlewares:
 
@@ -126,4 +135,4 @@ const allCompleted = Todo.where("isCaption", "=", true).get();
 
 ## Open Questions
 
-- How would it work with
+- How would it work with offline first database which syncs later?
