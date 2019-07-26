@@ -34,7 +34,7 @@ function generateFakeData(key: string) {
 
 function getNewEntity(schema: Schema, databaseSchema: DatabaseSchema) {
   var ret = {
-    id: Math.random()
+    id: faker.random.uuid()
   };
 
   for (let i in schema.fields) {
@@ -95,7 +95,7 @@ export default class FakeConnection implements ConnectionInterface {
         () =>
           resolve({
             ...values,
-            id: Math.random()
+            id: faker.random.uuid()
           }),
         1000
       );

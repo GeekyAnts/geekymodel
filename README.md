@@ -101,16 +101,28 @@ const allCompleted = Todo.where("isCaption", "=", true).get();
 - [x] Injectable Transport Layer
 - [ ] Improve FakeConnection to request and response on Schema
 - [ ] WIP: Implement get(), find(), insert(), update() and delete() with FakeConnection()
+- [ ] Normalization
 - [ ] RuntimeStorageConnection
 - [ ] Validation
-- [ ] Request and Response Middlewares
+- [ ] Middlewares:
+
+  - [x] Builder: For each method get(), find(), insert(), update() and delete()
+  - [ ] Connection: Request and Response
+
 - [x] Namespace Global variables in Database
 - [ ] Build script
 - [ ] Middlewares
 - [ ] LocalStorageConnection
 - [ ] Normalization
 - [ ] Relationships
+- [ ] Examples: Todo app
+- [ ] Examples: Hacker news clone
+- [ ] Examples: Shopping cart
 
 ## Decisions
 
 - DatabaseSchema to be forwarded from top level to the connection
+
+## Open Questions
+
+- How would it work with
