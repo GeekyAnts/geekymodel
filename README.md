@@ -59,7 +59,7 @@ newTodo.setField("isCompleted", "false");
 
 newTodo.save();
 
-// newTodo.saving gets populated which an observable
+// newTodo.saving gets populated which is a MobX ObservableValue
 ```
 
 #### Fetching all the todos and wiring with React
