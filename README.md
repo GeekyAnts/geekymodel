@@ -121,7 +121,6 @@ const allCompleted = Todo.where("isCaption", "=", true).get();
 - [x] Namespace Global variables in Database
 - [ ] Build script
 - [ ] Middlewares
-- [ ] LocalStorageConnection
 - [ ] Relationships
 - [ ] Examples:
 
