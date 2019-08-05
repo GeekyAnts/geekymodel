@@ -98,6 +98,7 @@ const allCompleted = Todo.where("isCaption", "=", true).get();
 ## Roadmap
 
 - [x] Model creation with Schema
+- [ ] Convert to monorepo
 - [x] Injectable Transport Layer
 - [ ] Connection
 
